@@ -6,10 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
     const [values, setvalues] = useState({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: ""
+        username:"",
+        email:"",
+        password:"",
+        confirmPassword:""
     })
 
     const toastOptions={
@@ -31,40 +31,42 @@ const Register = () => {
                 "Content-Type": "application/json",
                 // 'Content-Type': 'application/x-www-form-urlencoded',
               },body: JSON.stringify(values)})
-              let b=await a.text();
-              console.log(b)
+              let b=await a.json();
+              console.log(b);
+              if(b.status===false){
+                toast.error(b.msg,toastOptions)
+            }
         }
-        console.log(values)
     }
 
     const handleValidation = () => {
-        const { confirmPassword, password, username, email } = values;
-        if (password !== confirmPassword) {
-            toast.error('password and confirm password should be same', toastOptions)
+        const {password,confirmPassword,username,email}=values;
+        if(password!==confirmPassword){
+            toast.error("Password and confirm password should be same",toastOptions)
             return false;
         }else if(username.length<3){
-            toast.error('Username should be greater than 3 characters', toastOptions)
+            toast.error("Username should be greater then 3 characters",toastOptions)
             return false;
         }else if(password.length<8){
-            toast.error('Password should be equal or greater than 8 characters', toastOptions)
+            toast.error("Password should be equal or greater than 8 characters");
             return false;
-        }else if(email===""){
-            toast.error('Email is required', toastOptions)
+        }else if(email.length==0){
+            toast.error("Email is required",toastOptions)
             return false;
         }
-        return true
+        return true;
     }
 
 
     const handleChange = (e) => {
-        setvalues({ ...values, [e.target.name]: e.target.value })
+        setvalues({...values,[e.target.name]:e.target.value})
     }
 
 
     return (
         <>
             <div className="bg-[#131324] w-[100vw] h-[100vh] flex justify-center items-center">
-                <form className='bg-[#64575776] flex flex-col w-1/3 h- gap-5 p-8 border-none rounded-2xl' onSubmit={(e) => handleSubmit(e)}>
+                <form className='bg-[#00000076] flex flex-col w-1/3 h- gap-5 p-8 border-none rounded-2xl' onSubmit={(e) => handleSubmit(e)}>
                     <div className="brand flex justify-center items-center">
                         <img className='w-[100px] h-[100px]' src="src/assets/logo.svg" alt="logo" />
                         <h1 className='text-4xl font-bold text-white'>SNAPP</h1>
@@ -72,8 +74,8 @@ const Register = () => {
                     <input className='text-white bg-transparent w-[100%] text-lg p-[1rem] border-[#4e0eff] border-[1px] rounded-xl' type="text" placeholder='Username' name='username' onChange={(e) => handleChange(e)} />
                     <input className='text-white bg-transparent w-full text-lg p-[1rem] border-[#4e0eff] border-[1px] rounded-xl' type="email" placeholder='Email' name='email' onChange={(e) => handleChange(e)} />
                     <input className='text-white bg-transparent w-full text-lg p-[1rem] border-[#4e0eff] border-[1px] rounded-xl' type="password" placeholder='Password' name='password' onChange={(e) => handleChange(e)} />
-                    <input className='text-white bg-transparent w-full text-lg p-[1rem] border-[#4e0eff] border-[1px] rounded-xl' type="password" placeholder='onfirm Password' name='confirmPassword' onChange={(e) => handleChange(e)} />
-                    <button className='bg-[#997af0] text-white px-2 py-3 duration-150 transition-all rounded-xl border-none font-bold cursor-pointer text-xl hover:bg-[#4e0eff]' type='Submit'>CREATE A USER</button>
+                    <input className='text-white bg-transparent w-full text-lg p-[1rem] border-[#4e0eff] border-[1px] rounded-xl' type="password" placeholder='Confirm Password' name='confirmPassword' onChange={(e) => handleChange(e)} />
+                    <button className='bg-[#997af0] flex justify-center items-center text-white px-2 py-3 ease-in-out duration-200 transition-all rounded-xl border-none font-bold cursor-pointer text-xl hover:bg-[#4e0eff]' type='Submit'>CREATE A USER</button>
                     <span className='text-white uppercase'>Already have an account ? <Link className='text-[#4e0eff]' to="/login">Login</Link>
                     </span>
                 </form>

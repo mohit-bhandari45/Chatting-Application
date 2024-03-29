@@ -1,8 +1,11 @@
-const express=require("express")
-const cors=require("cors")
-const mongoose=require("mongoose")
+import express from "express"
+import cors from "cors"
+import mongoose from "mongoose";
+import User from "./models/register.js"
+import 'dotenv/config'
+import bcrypt from "bcrypt"
+
 const app = express()
-require("dotenv").config();
 app.use(cors())
 app.use(express.json())
 
@@ -19,9 +22,21 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post('/register', (req, res) => {
-  console.log(req.body)
-  res.send("Success")
+app.post('/register',async (req, res) => {
+  // const values=req.body;
+  const {username,email,password}=req.body;
+  const userCheck=await User.findOne({username})
+  if(userCheck){
+    res.json({msg:"Username already exist",status:false})
+  }
+  const emailCheck=await User.findOne({email})
+  if(emailCheck){
+    res.json({msg:"Email already used",status:false})
+  }
+  const hashedPassword=await bcrypt.hash(password,10)
+  const user=await User.create({
+    username,email,password:hashedPassword
+  })
 })
 
 app.listen(process.env.PORT, () => {
