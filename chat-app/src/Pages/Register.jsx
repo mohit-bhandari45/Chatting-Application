@@ -1,18 +1,19 @@
 import React from 'react'
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ToastContainer,toast } from 'react-toastify';
+import { Link,useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
+    const navigate=useNavigate()
     const [values, setvalues] = useState({
-        username:"",
-        email:"",
-        password:"",
-        confirmPassword:""
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
     })
 
-    const toastOptions={
+    const toastOptions = {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -24,34 +25,38 @@ const Register = () => {
         transition: "Bounce",
     }
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if(handleValidation()){
-            let a=await fetch("http://localhost:3000/register",{method:"POST",headers: {
-                "Content-Type": "application/json",
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-              },body: JSON.stringify(values)})
-              let b=await a.json();
-              console.log(b);
-              if(b.status===false){
-                toast.error(b.msg,toastOptions)
+        if (handleValidation()) {
+            let a = await fetch("http://localhost:3000/register", {
+                method: "POST", headers: {
+                    "Content-Type": "application/json",
+                }, body: JSON.stringify(values)
+            })
+            let data = await a.json();
+            if (data.status === false) {
+                toast.error(data.msg, toastOptions)
+            }
+            if(data.status===true){
+                localStorage.setItem("chat-app-user",JSON.stringify(data.user))
+                navigate("/login")
             }
         }
     }
 
     const handleValidation = () => {
-        const {password,confirmPassword,username,email}=values;
-        if(password!==confirmPassword){
-            toast.error("Password and confirm password should be same",toastOptions)
+        const { password, confirmPassword, username, email } = values;
+        if (password !== confirmPassword) {
+            toast.error("Password and confirm password should be same", toastOptions)
             return false;
-        }else if(username.length<3){
-            toast.error("Username should be greater then 3 characters",toastOptions)
+        } else if (username.length < 3) {
+            toast.error("Username should be greater then 3 characters", toastOptions)
             return false;
-        }else if(password.length<8){
+        } else if (password.length < 8) {
             toast.error("Password should be equal or greater than 8 characters");
             return false;
-        }else if(email.length==0){
-            toast.error("Email is required",toastOptions)
+        } else if (email.length == 0) {
+            toast.error("Email is required", toastOptions)
             return false;
         }
         return true;
@@ -59,7 +64,7 @@ const Register = () => {
 
 
     const handleChange = (e) => {
-        setvalues({...values,[e.target.name]:e.target.value})
+        setvalues({ ...values, [e.target.name]: e.target.value })
     }
 
 

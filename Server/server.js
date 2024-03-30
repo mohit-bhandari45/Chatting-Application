@@ -37,6 +37,22 @@ app.post('/register',async (req, res) => {
   const user=await User.create({
     username,email,password:hashedPassword
   })
+  delete user.password;
+  res.json({status:true,user})
+})
+
+app.post('/login',async (req, res) => {
+  const {username,password}=req.body;
+  const user=await User.findOne({username})
+  if(!user){
+    res.json({msg:"Incorrect username or password",status:false})
+  }
+  const isPasswordValid=bcrypt.compare(password,user.password)
+  if(!isPasswordValid){
+    res.json({msg:"Incorrect username or password",status:false})
+  }
+  delete user.password
+  res.json({status:true,user})
 })
 
 app.listen(process.env.PORT, () => {
