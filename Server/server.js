@@ -56,8 +56,7 @@ app.post('/login',async (req, res) => {
 })
 
 app.post("/setAvatar",async (req,res)=>{
-  console.log("mohit");
-  const userId=req.params.id;
+  const userId=req.body.userID;
   const avatarImage=req.body.image;
   const userData=await User.findByIdAndUpdate(userId,{
     isAvatarImageSet:true,
