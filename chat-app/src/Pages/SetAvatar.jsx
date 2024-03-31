@@ -12,6 +12,7 @@ const SetAvatar = () => {
     const [avatars, setAvatars] = useState([])
     const [isLoading, setLoading] = useState(true)
     const [selectedAvatar, setselectedAvatar] = useState(undefined)
+
     const toastOptions = {
         position: "bottom-right",
         autoClose: 5000,
@@ -32,26 +33,58 @@ const SetAvatar = () => {
             data.push(buffer.toString("base64"))
         }
         setAvatars(data)
-        isLoading(false)
+        setLoading(false)
     }, [])
+
+    const setProfilePicture = async () => {
+        if (selectedAvatar === undefined) {
+            toast.error("Please Select an Avatar", toastOptions);
+        }else{
+            const user=await JSON.parse(localStorage.getItem("chat-app-user"));
+            const avatarapi="http://localhost:3000/setAvatar";
+            const {data} = await axios.post(`${avatarapi}/${user._id}`, {
+                image:avatars[selectedAvatar],
+            })
+
+            // let {data} = await fetch(`${avatarapi}/${user._id}`, {
+            //     method: "POST", headers: {
+            //         "Content-Type": "application/json",
+            //     }, body: JSON.stringify({image:avatars[selectedAvatar]})
+            // })
+
+            if(data.isSet){
+                user.isAvatarImageSet=true;
+                user.avatarImage=data.image;
+                localStorage.setItem("chat-app-user",JSON.stringify(user))
+                navigate("/")
+            }else{
+                toast.error("Error setting avatar please try again",toastOptions)
+            }
+        }
+    }
 
 
     return (
         <>
-            <div className="cont flex justify-center items-center flex-col bg-[#131324] h-[100vh] gap-16 w-[100vw]">
-                <div className="title">
-                    <h1 className='text-4xl font-bold text-white'>Pick an avatar as your profile picture</h1>
-                </div>
-                <div className="avatars flex gap-20">
-                    {avatars.map((avatar, index) => {
-                        return (
-                            <div key={index} className={`avatar ${selectedAvatar === index ? "selected" : ""}`}>
-                                <img className='h-[100px] w-[100px]' src={`data:image/svg+xml;base64,${avatar}`} alt="avatar" onClick={() => { setselectedAvatar(index) }} />
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
+            {
+                isLoading ? <img src="src/assets/loader.gif" alt="" /> : (
+                    <div className="cont flex justify-center items-center flex-col bg-[#131324] h-[100vh] gap-10 w-[100vw]">
+                        <div className="title">
+                            <h1 className='text-4xl font-bold text-white'>Pick an avatar as your profile picture</h1>
+                        </div>
+                        <div className="avatars flex gap-14">
+                            {avatars.map((avatar, index) => {
+                                return (
+                                    <div key={index} className={`avatar ${selectedAvatar === index ? "selected p-2 border-8 border-blue-500 rounded-full transition-all duration-200" : "selected p-2 border-8 border-transparent rounded-full"}`}>
+                                        <img className='h-[100px] w-[100px]' src={`data:image/svg+xml;base64,${avatar}`} alt="avatar" onClick={() => { setselectedAvatar(index) }} />
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <button onClick={setProfilePicture} className='submit-btn bg-[#997af0] flex justify-center items-center text-white px-8 py-3 ease-in-out duration-200 transition-all rounded-xl border-none font-bold cursor-pointer text-xl hover:bg-[#4e0eff]'>Set as Profile Picture</button>
+                    </div>
+
+                )}
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
