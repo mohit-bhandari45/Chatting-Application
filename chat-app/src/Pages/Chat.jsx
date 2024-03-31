@@ -9,9 +9,9 @@ import axios from 'axios';
 const Chat = () => {
   const navigate = useNavigate()
   return (
-    <div>
-      chat
-    </div>
+    <h1 style={{color: "#fff"}}>
+      Chat component
+    </h1>
   )
 }
 

@@ -1,11 +1,11 @@
 import React from 'react'
-import { useState,useEffect } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [values, setvalues] = useState({
         username: "",
         email: "",
@@ -25,30 +25,58 @@ const Register = () => {
         transition: "Bounce",
     }
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     if (handleValidation()) {
+    //         let a = await fetch("http://localhost:3000/register", {
+    //             method: "POST", headers: {
+    //                 "Content-Type": "application/json",
+    //             }, body: JSON.stringify(values)
+    //         })
+    //         let data = await a.json();
+    //         if (data.status === false) {
+    //             toast.error(data.msg, toastOptions)
+    //         }
+    //         if(data.status===true){
+    //             localStorage.setItem("chat-app-user",JSON.stringify(data.user))
+    //             navigate("/login")
+    //         }
+    //     }
+    // }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (handleValidation()) {
-            let a = await fetch("http://localhost:3000/register", {
-                method: "POST", headers: {
-                    "Content-Type": "application/json",
-                }, body: JSON.stringify(values)
-            })
-            let data = await a.json();
-            if (data.status === false) {
-                toast.error(data.msg, toastOptions)
-            }
-            if(data.status===true){
-                localStorage.setItem("chat-app-user",JSON.stringify(data.user))
-                navigate("/login")
+            try {
+                let a = await fetch("http://localhost:3000/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(values)
+                });
+                let data = await a.json();
+                if (data.status === false) {
+                    toast.error(data.msg, toastOptions);
+                }
+                if (data.status === true) {
+                    localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+                    navigate("/login");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                toast.error("Failed to fetch data. Please try again later.", toastOptions);
             }
         }
     }
 
+
     useEffect(() => {
-        if(localStorage.getItem("chat-app-user")){
-          navigate("/")
+        if (localStorage.getItem("chat-app-user")) {
+            navigate("/")
         }
-      }, [])
+    }, [])
 
     const handleValidation = () => {
         const { password, confirmPassword, username, email } = values;
@@ -87,7 +115,7 @@ const Register = () => {
                     <input className='text-white bg-transparent w-full text-lg p-[1rem] border-[#4e0eff] border-[1px] rounded-xl' type="password" placeholder='Password' name='password' onChange={(e) => handleChange(e)} />
                     <input className='text-white bg-transparent w-full text-lg p-[1rem] border-[#4e0eff] border-[1px] rounded-xl' type="password" placeholder='Confirm Password' name='confirmPassword' onChange={(e) => handleChange(e)} />
                     <button className='bg-[#997af0] flex justify-center items-center text-white px-2 py-3 ease-in-out duration-200 transition-all rounded-xl border-none font-bold cursor-pointer text-xl hover:bg-[#4e0eff]' type='Submit'>CREATE A USER</button>
-                    <span className='text-white uppercase'>Already have an account ? <Link className='text-[#4e0eff]' to="/login">Login</Link>
+                    <span className='text-white uppercase'>Already have an account ? <Link className='text-[#4e0eff]' to={"/login"}>Login</Link>
                     </span>
                 </form>
                 <ToastContainer

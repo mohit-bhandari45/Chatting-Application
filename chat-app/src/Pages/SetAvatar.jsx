@@ -25,23 +25,58 @@ const SetAvatar = () => {
         transition: "Bounce",
     }
 
-    useEffect(async () => {
-        if (!localStorage.getItem("chat-app-user")) {
-            navigate("/login")
-        }
-    }, [])
+    // useEffect(async () => {
+    //     if (!localStorage.getItem("chat-app-user")) {
+    //         navigate("/login")
+    //     }
+    // }, [])
 
 
-    useEffect(async () => {
-        const data = [];
-        for (let i = 0; i < 4; i++) {
-            const image = await axios.get(`${api}/${Math.round(Math.random() * 1000)}`);
-            const buffer = new Buffer(image.data);
-            data.push(buffer.toString("base64"))
-        }
-        setAvatars(data)
-        setLoading(false)
-    }, [])
+    // useEffect(async () => {
+    //     const data = [];
+    //     for (let i = 0; i < 4; i++) {
+    //         const image = await axios.get(`${api}/${Math.round(Math.random() * 1000)}`);
+    //         const buffer = new Buffer(image.data);
+    //         data.push(buffer.toString("base64"))
+    //     }
+    //     setAvatars(data)
+    //     setLoading(false)
+    // }, [])
+
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             if (!localStorage.getItem("chat-app-user")) {
+    //                 navigate("/login")
+    //             }
+    //         } catch (error) {
+    //             console.error("Error:", error);
+    //         }
+    //     };
+    
+    //     fetchData();
+    // }, [navigate]);
+    
+    useEffect(() => {
+        const fetchAvatars = async () => {
+            try {
+                const data = [];
+                for (let i = 0; i < 4; i++) {
+                    const image = await axios.get(`${api}/${Math.round(Math.random() * 1000)}`);
+                    const buffer = Buffer.from(image.data);
+                    data.push(buffer.toString("base64"));
+                }
+                setAvatars(data);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        };
+    
+        fetchAvatars();
+    }, []);
+    
 
     const setProfilePicture = async () => {
         if (selectedAvatar === undefined) {

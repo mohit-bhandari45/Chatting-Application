@@ -20,7 +20,7 @@ const Login = () => {
     draggable: true,
     progress: undefined,
     theme: "dark",
-    transition: "Bounce",
+    transition: "bounce",
   }
 
   const handleSubmit = async (e) => {
