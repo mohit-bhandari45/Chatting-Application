@@ -56,15 +56,26 @@ app.post('/login',async (req, res) => {
 })
 
 app.post("/setAvatar",async (req,res)=>{
+  console.log(req.body)
   const userId=req.body.userID;
   const avatarImage=req.body.image;
   const userData=await User.findByIdAndUpdate(userId,{
     isAvatarImageSet:true,
     avatarImage,
   })
+  console.log(userData)
+  console.log(userData.isAvatarImageSet)
   res.json({isSet:userData.isAvatarImageSet,image:userData.avatarImage})
 })
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening on port ${process.env.PORT}`)
 })
+
+
+// app.post("/allusers",async(req,res)=>{
+//   console.log(req.body)
+//   console.log(req.body.userID)
+//   let b=await User.findOne({_id:req.body.userID})
+//   res.json(b);
+// })

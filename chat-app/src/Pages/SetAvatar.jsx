@@ -12,6 +12,7 @@ const SetAvatar = () => {
     const [avatars, setAvatars] = useState([])
     const [isLoading, setLoading] = useState(true)
     const [selectedAvatar, setselectedAvatar] = useState(undefined)
+    // const [boolcon, setboolcon] = useState(false)
 
     const toastOptions = {
         position: "bottom-right",
@@ -43,6 +44,14 @@ const SetAvatar = () => {
         setLoading(false)
     }, [])
 
+
+    // useEffect(() => {
+    //     if(localStorage.getItem("chat-app-user")){
+    //       navigate("/")
+    //     }
+    //   }, [])
+    
+
     const setProfilePicture = async () => {
         if (selectedAvatar === undefined) {
             toast.error("Please Select an Avatar", toastOptions);
@@ -59,13 +68,13 @@ const SetAvatar = () => {
                 user.isAvatarImageSet = true;
                 user.avatarImage = data.image;
                 localStorage.setItem("chat-app-user", JSON.stringify(user))
+                // setboolcon(true)
                 navigate("/")
             } else {
                 toast.error("Error setting avatar please try again", toastOptions)
             }
         }
     }
-
 
     return (
         <>
