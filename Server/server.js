@@ -4,10 +4,12 @@ import mongoose from "mongoose";
 import User from "./models/register.js"
 import 'dotenv/config'
 import bcrypt from "bcrypt"
+import register from "./routes/register.js"
 
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use("/register",register)
 
 mongoose.connect(process.env.MONGO_URL,{
   useNewUrlParser:true,
@@ -24,21 +26,22 @@ app.get('/', (req, res) => {
 
 app.post('/register',async (req, res) => {
   // const values=req.body;
-  const {username,email,password}=req.body;
-  const userCheck=await User.findOne({username})
-  if(userCheck){
-    res.json({msg:"Username already exist",status:false})
-  }
-  const emailCheck=await User.findOne({email})
-  if(emailCheck){
-    res.json({msg:"Email already used",status:false})
-  }
-  const hashedPassword=await bcrypt.hash(password,10)
-  const user=await User.create({
-    username,email,password:hashedPassword
-  })
-  delete user.password;
-  res.json({status:true,user})
+  console.log("mohit")
+  // const {username,email,password}=req.body;
+  // const userCheck=await User.findOne({username})
+  // if(userCheck){
+  //   res.json({msg:"Username already exist",status:false})
+  // }
+  // const emailCheck=await User.findOne({email})
+  // if(emailCheck){
+  //   res.json({msg:"Email already used",status:false})
+  // }
+  // const hashedPassword=await bcrypt.hash(password,10)
+  // const user=await User.create({
+  //   username,email,password:hashedPassword
+  // })
+  // delete user.password;
+  // res.json({status:true,user})
 })
 
 app.post('/login',async (req, res) => {

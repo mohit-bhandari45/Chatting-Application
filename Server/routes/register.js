@@ -1,7 +1,24 @@
 import express from "express"
 const router = express.Router()
+import mongoose from "mongoose";
+import User from "Server/models/register.js"
 
-app.post('/register', async (req, res) => {
+mongoose.connect(process.env.MONGO_URL,{
+    useNewUrlParser:true,
+    useUnifiedTopology:true,
+  }).then(()=>{
+    console.log("DB connection Successful");
+  }).catch((err)=>{
+    console.log(err.message);
+  })
+
+// const app = express()
+router.use((req, res, next) => {
+    console.log('Time: ', Date.now())
+    next()
+})
+
+router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
     const userCheck = await User.findOne({ username })
     if (userCheck) {
@@ -19,4 +36,5 @@ app.post('/register', async (req, res) => {
     res.json({ status: true, user })
 })
 
-// module.exports = router
+export default { router }
+// module.exports(router)
