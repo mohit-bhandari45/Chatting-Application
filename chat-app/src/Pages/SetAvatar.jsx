@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Buffer } from 'buffer';
 import axios from 'axios';
+import { setavatarroute } from '../Apis/ApiRoutes';
 
 const SetAvatar = () => {
     const api = "https://api.multiavatar.com/45678945";
@@ -57,7 +58,7 @@ const SetAvatar = () => {
             toast.error("Please Select an Avatar", toastOptions);
         } else {
             const user = await JSON.parse(localStorage.getItem("chat-app-user"));
-            const avatarapi = "http://localhost:3000/setAvatar";
+            const avatarapi = setavatarroute;
             let a = await fetch(avatarapi, {
                 method: "POST", headers: {
                     "Content-Type": "application/json",

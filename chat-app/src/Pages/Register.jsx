@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { registerroute } from '../Apis/ApiRoutes';
 
 const Register = () => {
     const navigate=useNavigate()
@@ -28,7 +29,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (handleValidation()) {
-            let a = await fetch("http://localhost:3000/register", {
+            let a = await fetch(registerroute, {
                 method: "POST", headers: {
                     "Content-Type": "application/json",
                 }, body: JSON.stringify(values)

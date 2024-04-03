@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { loginroute } from '../Apis/ApiRoutes';
 
 const Login = () => {
   const navigate = useNavigate()
@@ -26,7 +27,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (handleValidation()) {
-      let a = await fetch("http://localhost:3000/login", {
+      let a = await fetch(loginroute, {
         method: "POST", headers: {
           "Content-Type": "application/json",
         }, body: JSON.stringify(values)
