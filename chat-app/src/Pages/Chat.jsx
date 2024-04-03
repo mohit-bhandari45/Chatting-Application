@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Buffer } from 'buffer';
 import axios from 'axios';
-import Contact from './components/Contact';
+// import Contact from './components/Contact';
 
 const Chat = () => {
   // const [contacts, setcontacts] = useState([])
@@ -43,6 +43,16 @@ const Chat = () => {
   //     navigate("/setavatar")
   //   }
   // }, [currentUser])
+  const handleclick = async () => {
+    let a = await fetch("http://localhost:3000/register", {
+      method: "POST", headers: {
+        "Content-Type": "application/json",
+      }, body: JSON.stringify({ name: "mohit" })
+    })
+    let b = await a.text();
+    console.log(b)
+  }
+
 
 
   return (
@@ -51,6 +61,7 @@ const Chat = () => {
         <div className="cont2 h-[85vh] w-[85vw] bg-[#00000076]">
           {/* <Contact contacts={contacts} currentuser={currentUser}/> */}
           Chat
+          <button className='text-white' onClick={handleclick}>Click me</button>
         </div>
       </div>
     </>
