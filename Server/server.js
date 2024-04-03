@@ -9,6 +9,8 @@ import setavatarroute from "./routes/setavatarroute.js"
 const app = express()
 app.use(cors())
 app.use(express.json())
+
+//used routes
 app.use("/register",registerroute)
 app.use("/login",loginroute)
 app.use("/setavatar",setavatarroute)

@@ -6,7 +6,7 @@ import User from "../models/registerschema.js"
 import 'dotenv/config'
 
 export const registerRoute = async (req,res) => {
-    console.log("mohit")
+    console.log("mohitvrwervwerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrouteeeeeeeeeee")
     const { username, email, password } = req.body;
     const userCheck = await User.findOne({ username })
     if (userCheck) {
@@ -25,6 +25,7 @@ export const registerRoute = async (req,res) => {
 }
 
 export const loginRoute = async (req,res) => {
+    console.log("mohitvrwervwer")
     const { username, password } = req.body;
     const user = await User.findOne({ username })
     if (!user) {
@@ -39,6 +40,7 @@ export const loginRoute = async (req,res) => {
 }
 
 export const setAvatarRoute = async (req,res) => {
+    console.log("mohit")
     console.log(req.body)
     const userId = req.body.userID;
     const avatarImage = req.body.image;
@@ -50,4 +52,6 @@ export const setAvatarRoute = async (req,res) => {
     console.log(userData.isAvatarImageSet)
     return res.json({ isSet: userData.isAvatarImageSet, image: userData.avatarImage })
 }
+
+
 

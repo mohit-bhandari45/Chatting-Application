@@ -1,6 +1,6 @@
 import express from "express"
 const router = express.Router()
-import { setAvatarRoute } from "../userscontroller/userscontroller.js"
+import { registerRoute,loginRoute,setAvatarRoute } from "../userscontroller/userscontroller.js"
 
 
 router.post('/', setAvatarRoute)
