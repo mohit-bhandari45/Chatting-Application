@@ -5,6 +5,7 @@ import 'dotenv/config'
 import registerroute from "./routes/registerroute.js"
 import loginroute from "./routes/loginroute.js"
 import setavatarroute from "./routes/setavatarroute.js"
+// import router from "./routes/registerroute.js";
 
 const app = express()
 app.use(cors())
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use("/register",registerroute)
 app.use("/login",loginroute)
 app.use("/setavatar",setavatarroute)
+// app.use("/",router)
 
 mongoose.connect(process.env.MONGO_URL,{
   useNewUrlParser:true,
@@ -23,7 +25,6 @@ mongoose.connect(process.env.MONGO_URL,{
 }).catch((err)=>{
   console.log(err.message);
 })
-
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening on port ${process.env.PORT}`)
