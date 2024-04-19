@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -48,7 +48,7 @@ const Login = () => {
       navigate("/")
     }
   }, [])
-  
+
 
   const handleValidation = () => {
     const { password, username } = values;
@@ -76,9 +76,9 @@ const Login = () => {
             <img className='w-[100px] h-[100px]' src="src/assets/logo.svg" alt="logo" />
             <h1 className='text-4xl font-bold text-white'>SNAPP</h1>
           </div>
-          <input className='text-white bg-transparent w-[100%] text-lg p-[1rem] border-[#4e0eff] border-[1px] rounded-xl' type="text" placeholder='Username' name='username' onChange={(e) => handleChange(e)} min="3"/>
+          <input className='text-white bg-transparent w-[100%] text-lg p-[1rem] border-[#4e0eff] border-[1px] rounded-xl' type="text" placeholder='Username' name='username' onChange={(e) => handleChange(e)} min="3" />
           <input className='text-white bg-transparent w-full text-lg p-[1rem] border-[#4e0eff] border-[1px] rounded-xl' type="password" placeholder='Password' name='password' onChange={(e) => handleChange(e)} />
-          
+
           <button className='bg-[#997af0] flex justify-center items-center text-white px-2 py-3 ease-in-out duration-200 transition-all rounded-xl border-none font-bold cursor-pointer text-xl hover:bg-[#4e0eff]' type='Submit'>Login</button>
           <span className='text-white uppercase'>Don't have an account ? <Link className='text-[#4e0eff]' to="/register">Register</Link>
           </span>

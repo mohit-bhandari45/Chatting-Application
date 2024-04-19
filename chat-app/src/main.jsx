@@ -5,7 +5,6 @@ import './index.css'
 import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Register from './Pages/Register.jsx'
 import Login from './Pages/Login.jsx'
-import Chat from './Pages/Chat.jsx'
 import SetAvatar from './Pages/SetAvatar.jsx'
 
 const router = createBrowserRouter([
@@ -19,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Chat />
+    element: <App />
   },
   {
     path: "/setavatar",

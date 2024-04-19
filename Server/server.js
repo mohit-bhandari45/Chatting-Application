@@ -2,29 +2,26 @@ import express from "express"
 import cors from "cors"
 import mongoose from "mongoose";
 import 'dotenv/config'
-import registerroute from "./routes/registerroute.js"
-import loginroute from "./routes/loginroute.js"
-import setavatarroute from "./routes/setavatarroute.js"
-// import router from "./routes/registerroute.js";
+import router from "./routes/router.js"
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 
 //used routes
-app.use("/register",registerroute)
-app.use("/login",loginroute)
-app.use("/setavatar",setavatarroute)
-// app.use("/",router)
+app.use("/",router)
 
-mongoose.connect(process.env.MONGO_URL,{
-  useNewUrlParser:true,
-  useUnifiedTopology:true,
-}).then(()=>{
+
+
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
   console.log("DB connection Successful");
-}).catch((err)=>{
+}).catch((err) => {
   console.log(err.message);
 })
+
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening on port ${process.env.PORT}`)
