@@ -1,24 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-* {
+*{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-body,
-button,
-input {
-    font-family: "Josefin Sans", sans-serif;
-}
-
-body {
-    background-color: rgb(26, 9, 43);
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+body{
+    background-color: #131324;
 }
