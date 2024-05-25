@@ -80,7 +80,7 @@ const SetAvatar = () => {
                     </div>
                     <div className="avatars flex gap-8">
                         {avatars.map((avatar, index) => {
-                            return <div key={index} className={`avatar flex border-8 border-transparent justify-center items-center transition-all duration-300 ease-in-out rounded-full p-2 ${selectedAvatar === index ? "border-8 border-[#7b54e8]" : ""}`}>
+                            return <div key={index} className={`avatar flex border-8 justify-center items-center transition-all duration-300 ease-in-out rounded-full p-2 ${selectedAvatar === index ? "border-[#7b54e8]" : "border-transparent"}`}>
                                 <img className='h-28 w-28 cursor-pointer' onClick={() => setSelectedAvatar(index)} src={`data:image/svg+xml;base64,${avatar}`} alt="avatar" />
                             </div>
                         })}
