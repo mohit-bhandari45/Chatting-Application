@@ -33,10 +33,10 @@ const ChatInput = ({handleSendMsg}) => {
         <div className='inputs flex h-[12%] justify-center items-center bg-[#080420] px-5 gap-3 py-6'>
             <div className='button-container flex justify-center items-center'>
                 <div className="emoji relative">
-                    <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} className='cursor-pointer text-2xl text-[#ffff00c8]' />
+                    <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} className='text-2xl cursor-pointer transition-all duration-200 hover:scale-110 ease-in-out text-[#ffff00c8]' />
                     {
                         showEmojiPicker && <div className='absolute top-[-500px]'>
-                            <Picker className='bg-[#080420] border-[#9186f3] border-2 shadow-sm shadow-[#9a86f3]' onEmojiClick={handleEmojiClick} />
+                            <Picker className='bg-[#080420] border-[#9186f3] border-2 shadow-sm shadow-[#9a86f3] ' onEmojiClick={handleEmojiClick} />
                         </div>
                     }
                 </div>

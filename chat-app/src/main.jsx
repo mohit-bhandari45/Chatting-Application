@@ -9,11 +9,11 @@ import SetAvatar from './pages/SetAvatar.jsx'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/chat",
     element: <Chat />
   },
   {
-    path: "/register",
+    path: "/",
     element: <Register />
   },
   {

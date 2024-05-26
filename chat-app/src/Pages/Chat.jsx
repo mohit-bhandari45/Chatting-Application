@@ -60,8 +60,11 @@ const Chat = () => {
 
 
   return (
-    <div className='h-[100vh] flex flex-col bg-[#131324] justify-center items-center'>
-      <div className="chat w-[85vw] h-[85vh] bg-[#00000076] overflow-hidden flex">
+    <div className='h-[100vh] flex flex-col bg-[#131324] justify-center items-center relative'>
+      <div className="absolute z-10">
+        <img className='w-[100vw] h-[100vh] opacity-5' src="https://imgs.search.brave.com/esBRi_SRR6vUsRz8OFvBxomsqFud6d9zuzYImsHGx7c/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by90ZXh0dXJlXzEw/MzI2MzAtMjEzMi5q/cGc_c2l6ZT02MjYm/ZXh0PWpwZw" alt="" />
+      </div>
+      <div className="chat w-[85vw] h-[85vh] bg-[#00000076] overflow-hidden flex rounded-md relative z-20">
         <div className="contacts w-[30%] h-full">
           <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange} />
         </div>

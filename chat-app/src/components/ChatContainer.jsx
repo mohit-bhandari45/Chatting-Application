@@ -79,17 +79,17 @@ const ChatContainer = ({ socket, currentUser, currentChat }) => {
 
 
     return (
-        <div className='w-full h-full chat-header text-white font-[Helvetica] pt-5'>
+        <div className='w-full h-full chat-header bg-[#131324] text-white font-[Helvetica] pt-5'>
             <div className="user-details flex justify-between items-center gap-4 px-8 h-[10%]">
                 <div className="users flex justify-center items-center gap-4">
                     <div className="avatar">
-                        <img className='w-16 h-16' src={`data:image/svg+xml;base64,${currentChat.avatarImage}`} alt="avatar" />
+                        <img className='w-16 h-16 cursor-pointer transition-all duration-200 hover:scale-110 ease-in-out' src={`data:image/svg+xml;base64,${currentChat.avatarImage}`} alt="avatar" />
                     </div>
                     <div className="username text-2xl font-bold">
                         <h1>{currentChat.username}</h1>
                     </div>
                 </div>
-                <LogOut />
+                <LogOut className="cursor-pointer transition-all duration-200 hover:scale-110 ease-in-out" />
             </div>
             <div className="messages h-[78%] py-5 flex flex-col gap-3 overflow-auto px-8">
                 {messages.map((message) => {
